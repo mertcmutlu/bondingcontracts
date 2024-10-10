@@ -93,13 +93,12 @@ contract SuperMemeDegenBondingCurve is ERC20, ReentrancyGuard {
         devLocked = _devLocked;
         devLockTime = block.timestamp + _devLockDuration;
         if (_amount > 0) {
-            buyTokens(_amount, 100, _buyEth);
+            devBuyTokens(_amount, _buyEth);
         }
     }
     function buyTokens(
         uint256 _amount,
-        uint256 _slippage,
-        uint256 _buyEth
+        uint256 _slippage
     ) public payable nonReentrant {
         require(_amount > 0, "0 amount");
         require(!bondingCurveCompleted, "Curve done");
@@ -107,32 +106,27 @@ contract SuperMemeDegenBondingCurve is ERC20, ReentrancyGuard {
         uint256 tax = (cost * tradeTax) / tradeTaxDivisor;
         uint256 totalCost = cost + tax;
         uint256 slippageAmount = (totalCost * _slippage) / 10000;
-        uint256 minimumCost = totalCost - slippageAmount;
-        require(minimumCost <= msg.value, "Insufficient funds");
+        require(cost + tax <= msg.value, "Insufficient funds");
         require(
-            _buyEth >= minimumCost && _buyEth <= totalCost + slippageAmount,
+             msg.value >= totalCost + slippageAmount,
             "Slippage"
         );
         payTax(tax);
-        uint256 excessEth = (_buyEth > totalCost) ? _buyEth - totalCost : 0;
-        //require(scaledSupply + _amount <= MAX_SALE_SUPPLY, "Max supply");
+        uint256 excessEth = (msg.value > totalCost) ? msg.value - totalCost : 0;
         totalEtherCollected += cost;
         scaledSupply += _amount;
         if (scaledSupply >= MAX_SALE_SUPPLY) {
             bondingCurveCompleted = true;
             _amount = MAX_SALE_SUPPLY - (scaledSupply - _amount);
         }
-        address buyer = (msg.sender == factoryContract)
-            ? devAddress
-            : msg.sender;
 
         if (excessEth > 0) {
-            payable(buyer).transfer(excessEth);
+            payable(msg.sender).transfer(excessEth);
         }
-        _mint(buyer, _amount * 10 ** 18);
+        _mint(msg.sender, _amount * 10 ** 18);
         uint256 totalSup = totalSupply();
         uint256 lastPrice = calculateCost(1);
-        emit tokensBought(_amount, cost, address(this), buyer, totalSup);
+        emit tokensBought(_amount, cost, address(this), msg.sender, totalSup);
         emit Price(lastPrice, totalSup, address(this), _amount);
 
         if (bondingCurveCompleted) {
@@ -151,7 +145,6 @@ contract SuperMemeDegenBondingCurve is ERC20, ReentrancyGuard {
         require(success, "Transfer failed");
         totalRevenueCollected += _tax;
     }
-
     function sendToDex() public payable {
         require(bondingCurveCompleted, "Curve not done");
         payTax(sendDexRevenue);
@@ -170,7 +163,6 @@ contract SuperMemeDegenBondingCurve is ERC20, ReentrancyGuard {
         );
         emit SentToDex(_ethAmount, _tokenAmount, block.timestamp);
     }
-
     function sellTokens(
         uint256 _amount,
         uint256 _minimumEthRequired
@@ -228,5 +220,41 @@ contract SuperMemeDegenBondingCurve is ERC20, ReentrancyGuard {
     function remainingTokens() public view returns (uint256) {
         return MAX_SALE_SUPPLY - scaledSupply;
     }
-}
 
+
+    function devBuyTokens(
+        uint256 _amount,
+        uint256 _buyEth
+    ) internal nonReentrant {
+        require(_amount > 0, "0 amount");
+        require(!bondingCurveCompleted, "Curve done");
+        require(msg.value >= _buyEth, "Insufficient funds");
+        uint256 cost = calculateCost(_amount);
+        uint256 tax = (cost * tradeTax) / tradeTaxDivisor;
+        uint256 totalCost = cost + tax;
+        payTax(tax);
+        uint256 excessEth = (_buyEth > totalCost) ? _buyEth - totalCost : 0;
+        totalEtherCollected += cost;
+        scaledSupply += _amount;
+        if (scaledSupply >= MAX_SALE_SUPPLY) {
+            bondingCurveCompleted = true;
+            _amount = MAX_SALE_SUPPLY - (scaledSupply - _amount);
+        }
+        address buyer = (msg.sender == factoryContract)
+            ? devAddress
+            : msg.sender;
+
+        if (excessEth > 0) {
+            payable(buyer).transfer(excessEth);
+        }
+        _mint(buyer, _amount * 10 ** 18);
+        uint256 totalSup = totalSupply();
+        uint256 lastPrice = calculateCost(1);
+        emit tokensBought(_amount, cost, address(this), buyer, totalSup);
+        emit Price(lastPrice, totalSup, address(this), _amount);
+
+        if (bondingCurveCompleted) {
+            sendToDex();
+        }
+    }
+}

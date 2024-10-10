@@ -178,8 +178,7 @@ contract LockingCurve is Test {
         uint256 nextLockTime = lockingCurve.calculateNextLockTime();
         lockingCurve.buyTokens{value: totalCostWithSlippage}(
             amount,
-            100,
-            totalCost
+            100
         );
         uint256 lockTime = lockingCurve.lockTime(addr1);
         assertEq(lockTime, nextLockTime);
@@ -204,8 +203,7 @@ contract LockingCurve is Test {
             console.log("block timestamp", block.timestamp);
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             uint256 lockTime = lockingCurve.lockTime(addresses[i]);
             console.log("block timestamp", block.timestamp);
@@ -243,8 +241,7 @@ contract LockingCurve is Test {
             console.log("exits next");
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             console.log("user", i, "bought tokens");
             uint256 lockTime = lockingCurve.lockTime(addresses[i]);
@@ -265,6 +262,8 @@ contract LockingCurve is Test {
             uint256 remainingLockTime = (lockTime < block.timestamp)
                 ? 0
                 : lockTime - block.timestamp;
+
+            console.log("before underfow", remainingLockTime);
             console.log(
                 "remainingLockTime",
                 secondsToHumanReadable(remainingLockTime)
@@ -285,8 +284,7 @@ contract LockingCurve is Test {
         uint256 nextLockTime = lockingCurve.calculateNextLockTime();
         lockingCurve.buyTokens{value: totalCostWithSlippage}(
             amount,
-            100,
-            totalCost
+            100
         );
         for (uint256 i = 0; i < 5; i++) {
             uint256 newTimeStamp = 1 days * i;
@@ -320,8 +318,7 @@ contract LockingCurve is Test {
             uint256 totalCostWithSlippage = totalCost + slippage;
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(lockingCurve.balanceOf(addresses[i]), amount * 10 ** 18);
             console.log("user", i, "bought tokens");
@@ -372,8 +369,7 @@ contract LockingCurve is Test {
         uint256 totalCostWithSlippage = totalCost + slippage;
         lockingCurve.buyTokens{value: totalCostWithSlippage}(
             amount,
-            100,
-            totalCost
+            100
         );
         assertEq(lockingCurve.balanceOf(addr1), amount * 10 ** 18);
 
@@ -414,8 +410,7 @@ contract LockingCurve is Test {
                    uint256 nextLockTime = lockingCurve.calculateNextLockTime();
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(lockingCurve.balanceOf(addresses[i]), amount * 10 ** 18);
 
@@ -479,8 +474,7 @@ contract LockingCurve is Test {
                    uint256 nextLockTime = lockingCurve.calculateNextLockTime();
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(lockingCurve.balanceOf(addresses[i]), amount * 10 ** 18);
             uint256 lockTime = lockingCurve.lockTime(addresses[i]);
@@ -545,6 +539,7 @@ contract LockingCurve is Test {
         uint256 slippage = totalCost / 100;
         uint256 totalCostWithSlippage = totalCost + slippage;
         for (uint256 i = 0; i < 5; i++) {
+            console.log("user number", i);
             amount = 150000000;
             cost = lockingCurve.calculateCost(amount);
             tax = cost / 100;
@@ -556,8 +551,7 @@ contract LockingCurve is Test {
 
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(lockingCurve.balanceOf(addresses[i]), amount * 10 ** 18);
             uint256 lockTime = lockingCurve.lockTime(addresses[i]);
@@ -585,6 +579,7 @@ contract LockingCurve is Test {
         //user 1 and 2 sell their tokens
         for (uint256 j = 0; j < 2; j++) {
             vm.startPrank(addresses[j]);
+            console.log("user", j, "selling tokens");
             lockingCurve.sellTokens(amount, 0);
             vm.stopPrank();
         }
@@ -605,8 +600,7 @@ contract LockingCurve is Test {
             uint256 totalCostWithSlippage = totalCost + slippage;
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(lockingCurve.balanceOf(addresses[j]), amount * 10 ** 18);
             vm.stopPrank();
@@ -673,8 +667,7 @@ contract LockingCurve is Test {
             vm.expectRevert();
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             vm.stopPrank();
         }
@@ -700,8 +693,7 @@ contract LockingCurve is Test {
 
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(lockingCurve.balanceOf(addresses[i]), amount * 10 ** 18);
             uint256 lockTime = lockingCurve.lockTime(addresses[i]);
@@ -750,8 +742,7 @@ contract LockingCurve is Test {
         console.log("calculated next lock for user 0 is", secondsToHumanReadable(nextLockTime - block.timestamp));
         lockingCurve.buyTokens{value: totalCostWithSlippage}(
             amount,
-            100,
-            totalCost
+            100
         );
         assertEq(lockingCurve.balanceOf(new_addresses[0]), amount * 10 ** 18);
         uint256 lockTime = lockingCurve.lockTime(new_addresses[0]);
@@ -778,8 +769,7 @@ contract LockingCurve is Test {
         console.log("calculated next lock for user 1 is", secondsToHumanReadable(nextLockTime - block.timestamp));
         lockingCurve.buyTokens{value: totalCostWithSlippage}(
             amount,
-            100,
-            totalCost
+            100
         );
         assertEq(lockingCurve.balanceOf(new_addresses[1]), amount * 10 ** 18);
         lockTime = lockingCurve.lockTime(new_addresses[1]);
@@ -815,8 +805,7 @@ contract LockingCurve is Test {
             console.log("calculated next lock for user", i, "is", secondsToHumanReadable(nextLockTime - block.timestamp));
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(lockingCurve.balanceOf(new_addresses[i]), amount * 10 ** 18);
             lockTime = lockingCurve.lockTime(new_addresses[i]);
@@ -846,8 +835,7 @@ contract LockingCurve is Test {
         console.log("calculated next lock for USER 5 is", secondsToHumanReadable(nextLockTime - block.timestamp));
         lockingCurve.buyTokens{value: totalCostWithSlippage}(
             amount,
-            100,
-            totalCost
+            100
         );
         assertEq(lockingCurve.balanceOf(new_addresses[5]), amount * 10 ** 18);
         lockTime = lockingCurve.lockTime(new_addresses[5]);
@@ -887,8 +875,7 @@ contract LockingCurve is Test {
             console.log("calculated next lock for user", i, "is", secondsToHumanReadable(nextLockTime - block.timestamp));
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(lockingCurve.balanceOf(new_addresses[i]), amount * 10 ** 18);
             lockTime = lockingCurve.lockTime(new_addresses[i]);
@@ -936,8 +923,7 @@ contract LockingCurve is Test {
     console.log("calculated next lock for USER 10 is", secondsToHumanReadable(nextLockTime - block.timestamp));
     lockingCurve.buyTokens{value: totalCostWithSlippage}(
         amount,
-        100,
-        totalCost
+        100
     );
     assertEq(lockingCurve.balanceOf(new_addresses[10]), amount * 10 ** 18);
     lockTime = lockingCurve.lockTime(new_addresses[10]);
@@ -966,8 +952,7 @@ contract LockingCurve is Test {
     console.log("calculated next lock for USER 11 is", secondsToHumanReadable(nextLockTime - block.timestamp));
     lockingCurve.buyTokens{value: totalCostWithSlippage}(
         amount,
-        100,
-        totalCost
+        100
     );
     assertEq(lockingCurve.balanceOf(new_addresses[11]), amount * 10 ** 18);
     lockTime = lockingCurve.lockTime(new_addresses[11]);
@@ -1006,8 +991,7 @@ contract LockingCurve is Test {
         console.log("calculated next lock for user", i, "is", secondsToHumanReadable(nextLockTime - block.timestamp));
         lockingCurve.buyTokens{value: totalCostWithSlippage}(
             amount,
-            100,
-            totalCost
+            100
         );
         assertEq(lockingCurve.balanceOf(new_addresses[i]), amount * 10 ** 18);
         lockTime = lockingCurve.lockTime(new_addresses[i]);
@@ -1045,8 +1029,7 @@ contract LockingCurve is Test {
     console.log("calculated next lock for user 15 is", secondsToHumanReadable(nextLockTime - block.timestamp));
     lockingCurve.buyTokens{value: totalCostWithSlippage}(
         amount,
-        100,
-        totalCost
+        100
     );
 
     //user 16 buys 0.04 ether
@@ -1065,8 +1048,7 @@ contract LockingCurve is Test {
     console.log("calculated next lock for user 16 is", secondsToHumanReadable(nextLockTime - block.timestamp));
     lockingCurve.buyTokens{value: totalCostWithSlippage}(
         amount,
-        100,
-        totalCost
+        100
     );
 
     //3 hours passes
@@ -1118,8 +1100,7 @@ contract LockingCurve is Test {
         console.log("calculated next lock for user 0 is", secondsToHumanReadable(nextLockTime - block.timestamp));
         lockingCurve.buyTokens{value: totalCostWithSlippage}(
             amount,
-            100,
-            totalCost
+            100
         );
         assertEq(lockingCurve.balanceOf(new_addresses[0]), amount * 10 ** 18);
         uint256 lockTime = lockingCurve.lockTime(new_addresses[0]);
@@ -1150,8 +1131,7 @@ contract LockingCurve is Test {
         console.log("calculated next lock for user 1 is", secondsToHumanReadable(nextLockTime - block.timestamp));
         lockingCurve.buyTokens{value: totalCostWithSlippage}(
             amount,
-            100,
-            totalCost
+            100
         );
         assertEq(lockingCurve.balanceOf(new_addresses[1]), amount * 10 ** 18);
         lockTime = lockingCurve.lockTime(new_addresses[1]);
@@ -1184,8 +1164,7 @@ contract LockingCurve is Test {
         console.log("calculated next lock for user 2 is", secondsToHumanReadable(nextLockTime - block.timestamp));
         lockingCurve.buyTokens{value: totalCostWithSlippage}(
             amount,
-            100,
-            totalCost
+            100
         );
         assertEq(lockingCurve.balanceOf(new_addresses[2]), amount * 10 ** 18);
         lockTime = lockingCurve.lockTime(new_addresses[2]);
@@ -1236,8 +1215,7 @@ contract LockingCurve is Test {
             console.log("total supply", totalSupply- 200_000_000);
             lockingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             //assertEq(lockingCurve.balanceOf(new_addresses[i]), amount * 10 ** 18);
             uint256 lockTime = lockingCurve.lockTime(new_addresses[i]);

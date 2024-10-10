@@ -110,7 +110,9 @@ contract BondingCurvePricingTest is Test {
             uint256 cost = testTokenInstanceDegen.calculateCost(amount);
             uint256 tax = cost / 100;
             uint256 totalCost = cost + tax;
-            testTokenInstanceDegen.buyTokens{value: totalCost}(amount, 100, totalCost);
+            uint256 slippage = totalCost / 100;
+            uint256 totalCostWithSlippage = totalCost + slippage;
+            testTokenInstanceDegen.buyTokens{value: totalCostWithSlippage}(amount, 100);
             uint256 pricePerToken = testTokenInstanceDegen.calculateCost(1);
             uint256 totalSupply = testTokenInstanceDegen.totalSupply();
             //
@@ -126,8 +128,10 @@ contract BondingCurvePricingTest is Test {
             uint256 cost = testTokenInstanceRefund.calculateCost(amount);
             uint256 tax = cost / 100;
             uint256 totalCost = cost + tax;
+            uint256 slippage = totalCost / 100;
+            uint256 totalCostWithSlippage = totalCost + slippage;
             vm.roll(block.number + 1);
-            testTokenInstanceRefund.buyTokens{value: totalCost}(amount, 100, totalCost);
+            testTokenInstanceRefund.buyTokens{value: totalCostWithSlippage}(amount, 100);
             uint256 pricePerToken = testTokenInstanceRefund.calculateCost(1);
             uint256 totalSupply = testTokenInstanceRefund.totalSupply();
             console.log("totalSupply", totalSupply);
@@ -142,8 +146,10 @@ contract BondingCurvePricingTest is Test {
             uint256 cost = testTokenInstanceDegen.calculateCost(amount);
             uint256 tax = cost / 100;
             uint256 totalCost = cost + tax;
+            uint256 slippage = totalCost / 100;
+            uint256 totalCostWithSlippage = totalCost + slippage;
             vm.roll(block.number + 1);
-            testTokenInstanceDegen.buyTokens{value: totalCost}(amount, 100, totalCost);
+            testTokenInstanceDegen.buyTokens{value: totalCostWithSlippage}(amount, 100);
             uint256 pricePerToken = testTokenInstanceDegen.calculateCost(1);
             uint256 totalSupply = testTokenInstanceDegen.totalSupply();
             //console.log("pricePerToken", pricePerToken);

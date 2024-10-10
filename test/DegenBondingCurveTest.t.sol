@@ -61,8 +61,7 @@ contract DegenBondingCurveTest is Test {
             uint256 totalCostWithSlippage = totalCost + slippage;
             degenbondingcurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(degenbondingcurve.balanceOf(address(addr1)), amount * 10 ** 18);
             assertEq(degenbondingcurve.bondingCurveCompleted(), true);
@@ -78,8 +77,7 @@ contract DegenBondingCurveTest is Test {
             uint256 totalCostWithSlippage = totalCost + slippage;
             degenbondingcurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(degenbondingcurve.balanceOf(address(addr1)), amount * 10 ** 18);
             assertEq(degenbondingcurve.bondingCurveCompleted(), true);
@@ -87,8 +85,7 @@ contract DegenBondingCurveTest is Test {
             vm.expectRevert("Curve done");
             degenbondingcurve.buyTokens{value: totalCostWithSlippage}(
                     amount,
-                    100,
-                    totalCost
+                    100
                 );
             vm.expectRevert("Curve done");
             degenbondingcurve.sellTokens(amount,0);
@@ -105,8 +102,7 @@ contract DegenBondingCurveTest is Test {
             uint256 totalCostWithSlippage = totalCost + slippage;
             degenbondingcurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(degenbondingcurve.balanceOf(address(addr1)), amount * 10 ** 18);
             assertEq(degenbondingcurve.bondingCurveCompleted(), true);

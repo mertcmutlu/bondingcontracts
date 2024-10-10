@@ -98,7 +98,8 @@ contract RefundScenariosTest is Test {
         uint256 tax = cost / 100;
         uint256 slippage = 100;
         uint256 totalCost = cost + tax;
-        tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(dummyBuyAmount, 100, totalCost);
+        slippage = totalCost / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(dummyBuyAmount, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr1), dummyBuyAmount * 10 ** 18);
         uint256 balanceBefore = address(addr1).balance;
         uint256 tokenBalanceBefore = tTokenInstanceRefund.balanceOf(addr1);
@@ -136,7 +137,8 @@ contract RefundScenariosTest is Test {
             uint256 tax = cost / 100;
             uint256 slippage = 100;
             uint256 totalCost = cost + tax;
-            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(amounts[i], 100, totalCost);
+            slippage = totalCost / 100;
+            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(amounts[i], 100);
             assertEq(tTokenInstanceRefund.balanceOf(addr1), amounts[i] * 10 ** 18);
             uint256 balanceBefore = address(addr1).balance;
             uint256 tokenBalanceBefore = tTokenInstanceRefund.balanceOf(addr1);
@@ -159,7 +161,8 @@ contract RefundScenariosTest is Test {
         uint256 tax = cost / 100;
         uint256 slippage = 100;
         uint256 totalCost = cost + tax;
-        tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(dummyBuyAmount, 100, totalCost);
+        slippage = totalCost / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(dummyBuyAmount, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr1), dummyBuyAmount * 10 ** 18);
         vm.stopPrank();
 
@@ -168,7 +171,8 @@ contract RefundScenariosTest is Test {
         uint256 tax2 = cost2 / 100;
         uint256 slippage2 = 100;
         uint256 totalCost2 = cost2 + tax2;
-        tTokenInstanceRefund.buyTokens{value: totalCost2 + slippage2}(dummyBuyAmount2, 100, totalCost2);
+        slippage2 = totalCost2 / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost2 + slippage2}(dummyBuyAmount2, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr2), dummyBuyAmount2 * 10 ** 18);
         uint256 balanceBeforeaddr2 = address(addr2).balance;
         uint256 tokenBalanceBeforeaddr2 = tTokenInstanceRefund.balanceOf(addr2);
@@ -179,7 +183,8 @@ contract RefundScenariosTest is Test {
         uint256 tax3 = cost3 / 100;
         uint256 slippage3 = 100;
         uint256 totalCost3 = cost3 + tax3;
-        tTokenInstanceRefund.buyTokens{value: totalCost3 + slippage3}(dummyBuyAmount, 100, totalCost3);
+        slippage3 = totalCost3 / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost3 + slippage3}(dummyBuyAmount, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr3), dummyBuyAmount * 10 ** 18);
         uint256 balanceBeforeaddr3 = address(addr3).balance;
         uint256 tokenBalanceBeforeaddr3 = tTokenInstanceRefund.balanceOf(addr3);
@@ -190,7 +195,8 @@ contract RefundScenariosTest is Test {
         uint256 tax4 = cost4 / 100;
         uint256 slippage4 = 100;
         uint256 totalCost4 = cost4 + tax4;
-        tTokenInstanceRefund.buyTokens{value: totalCost4 + slippage4}(dummyBuyAmount2, 100, totalCost4);
+        slippage4 = totalCost4 / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost4 + slippage4}(dummyBuyAmount2, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr4), dummyBuyAmount2 * 10 ** 18);
         uint256 balanceBeforeaddr4 = address(addr4).balance;
         uint256 tokenBalanceBeforeaddr4 = tTokenInstanceRefund.balanceOf(addr4);
@@ -201,7 +207,8 @@ contract RefundScenariosTest is Test {
         uint256 tax5 = cost5 / 100;
         uint256 slippage5 = 100;
         uint256 totalCost5 = cost5 + tax5;
-        tTokenInstanceRefund.buyTokens{value: totalCost5 + slippage5}(dummyBuyAmount, 100, totalCost5);
+        slippage5 = totalCost5 / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost5 + slippage5}(dummyBuyAmount, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr5), dummyBuyAmount * 10 ** 18);
         uint256 balanceBeforeaddr5 = address(addr5).balance;
         uint256 tokenBalanceBeforeaddr5 = tTokenInstanceRefund.balanceOf(addr5);
@@ -245,7 +252,8 @@ contract RefundScenariosTest is Test {
         uint256 tax = cost / 100;
         uint256 slippage = 100;
         uint256 totalCost = cost + tax;
-        tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(dummyBuyAmount, 100, totalCost);
+        slippage = totalCost / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(dummyBuyAmount, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr1), dummyBuyAmount * 10 ** 18);
         uint256 balanceBefore = address(addr1).balance;
         uint256 tokenBalanceBefore = tTokenInstanceRefund.balanceOf(addr1);
@@ -256,7 +264,8 @@ contract RefundScenariosTest is Test {
         uint256 tax2 = cost2 / 100;
         uint256 slippage2 = 100;
         uint256 totalCost2 = cost2 + tax2;
-        tTokenInstanceRefund.buyTokens{value: totalCost2 + slippage2}(dummyBuyAmount2, 100, totalCost2);
+        slippage2 = totalCost2 / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost2 + slippage2}(dummyBuyAmount2, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr2), dummyBuyAmount2 * 10 ** 18);
         uint256 balanceBeforeaddr2 = address(addr2).balance;
         uint256 tokenBalanceBeforeaddr2 = tTokenInstanceRefund.balanceOf(addr2);
@@ -267,7 +276,8 @@ contract RefundScenariosTest is Test {
         uint256 tax3 = cost3 / 100;
         uint256 slippage3 = 100;
         uint256 totalCost3 = cost3 + tax3;
-        tTokenInstanceRefund.buyTokens{value: totalCost3 + slippage3}(dummyBuyAmount, 100, totalCost3);
+        slippage3 = totalCost3 / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost3 + slippage3}(dummyBuyAmount, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr3), dummyBuyAmount * 10 ** 18);
         uint256 balanceBeforeaddr3 = address(addr3).balance;
         uint256 tokenBalanceBeforeaddr3 = tTokenInstanceRefund.balanceOf(addr3);
@@ -278,7 +288,8 @@ contract RefundScenariosTest is Test {
         uint256 tax4 = cost4 / 100;
         uint256 slippage4 = 100;
         uint256 totalCost4 = cost4 + tax4;
-        tTokenInstanceRefund.buyTokens{value: totalCost4 + slippage4}(dummyBuyAmount2, 100, totalCost4);
+         slippage4 = totalCost4 / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost4 + slippage4}(dummyBuyAmount2, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr4), dummyBuyAmount2 * 10 ** 18);
         uint256 balanceBeforeaddr4 = address(addr4).balance;
         uint256 tokenBalanceBeforeaddr4 = tTokenInstanceRefund.balanceOf(addr4);
@@ -312,7 +323,8 @@ contract RefundScenariosTest is Test {
             uint256 tax = cost / 100;
             uint256 slippage = 100;
             uint256 totalCost = cost + tax;
-            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100, totalCost);
+             slippage = totalCost / 100;
+            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100);
             assertEq(tTokenInstanceRefund.balanceOf(addresses[i]), buyAmountForBulk * 10 ** 18);
             vm.stopPrank();
         }
@@ -347,7 +359,8 @@ contract RefundScenariosTest is Test {
             uint256 tax = cost / 100;
             uint256 slippage = 100;
             uint256 totalCost = cost + tax;
-            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100, totalCost);
+             slippage = totalCost / 100;
+            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100);
             assertEq(tTokenInstanceRefund.balanceOf(addresses[i]), buyAmountForBulk * 10 ** 18);
             vm.stopPrank();
         }
@@ -357,7 +370,8 @@ contract RefundScenariosTest is Test {
         uint256 tax = cost / 100;
         uint256 slippage = 100;
         uint256 totalCost = cost + tax;
-        tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(dummyBuyAmount, 100, totalCost);
+        slippage = totalCost / 100;
+        tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(dummyBuyAmount, 100);
         assertEq(tTokenInstanceRefund.balanceOf(addr1), dummyBuyAmount * 10 ** 18);
         uint256 balanceBefore = address(addr1).balance;
         uint256 tokenBalanceBefore = tTokenInstanceRefund.balanceOf(addr1);
@@ -413,7 +427,8 @@ contract RefundScenariosTest is Test {
             uint256 tax = cost / 100;
             uint256 slippage = 100;
             uint256 totalCost = cost + tax;
-            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100, totalCost);
+            slippage = totalCost / 100;
+            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100);
             assertEq(tTokenInstanceRefund.balanceOf(addresses[i]), buyAmountForBulk * 10 ** 18);
             vm.stopPrank();
         }
@@ -424,7 +439,8 @@ contract RefundScenariosTest is Test {
             uint256 tax = cost / 100;
             uint256 slippage = 100;
             uint256 totalCost = cost + tax;
-            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100, totalCost);
+            slippage = totalCost / 100;
+            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100);
             //assertEq(tTokenInstanceRefund.balanceOf(addresses[i]), buyAmountForBulk * 10 ** 18);
             vm.stopPrank();
         }
@@ -435,7 +451,8 @@ contract RefundScenariosTest is Test {
             uint256 tax = cost / 100;
             uint256 slippage = 100;
             uint256 totalCost = cost + tax;
-            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100, totalCost);
+            slippage = totalCost / 100;
+            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100);
             //assertEq(tTokenInstanceRefund.balanceOf(addresses[i]), buyAmountForBulk * 10 ** 18);
             vm.stopPrank();
         }
@@ -469,7 +486,8 @@ contract RefundScenariosTest is Test {
             uint256 tax = cost / 100;
             uint256 slippage = 100;
             uint256 totalCost = cost + tax;
-            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100, totalCost);
+            slippage = totalCost / 100;
+            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100);
             assertEq(tTokenInstanceRefund.balanceOf(addresses[i]), buyAmountForBulk * 10 ** 18);
             vm.stopPrank();
         }
@@ -481,7 +499,8 @@ contract RefundScenariosTest is Test {
             uint256 tax = cost / 100;
             uint256 slippage = 100;
             uint256 totalCost = cost + tax;
-            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100, totalCost);
+            slippage = totalCost / 100;
+            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100);
             //assertEq(tTokenInstanceRefund.balanceOf(addresses[i]), buyAmountForBulk * 10 ** 18);
             vm.stopPrank();
         }
@@ -524,7 +543,8 @@ contract RefundScenariosTest is Test {
             uint256 tax = cost / 100;
             uint256 slippage = 100;
             uint256 totalCost = cost + tax;
-            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100, totalCost);
+            slippage = totalCost / 100;
+            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100);
             assertEq(tTokenInstanceRefund.balanceOf(addresses[i]), buyAmountForBulk * 10 ** 18);
             vm.stopPrank();
         }
@@ -534,8 +554,10 @@ contract RefundScenariosTest is Test {
             uint256 cost = tTokenInstanceRefund.calculateCost(buyAmountForBulk);
             uint256 tax = cost / 100;
             uint256 slippage = 100;
+            
             uint256 totalCost = cost + tax;
-            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100, totalCost);
+            slippage = totalCost / 100;
+            tTokenInstanceRefund.buyTokens{value: totalCost + slippage}(buyAmountForBulk, 100);
             //assertEq(tTokenInstanceRefund.balanceOf(addresses[i]), buyAmountForBulk * 10 ** 18);
             vm.stopPrank();
         }
@@ -560,8 +582,9 @@ contract RefundScenariosTest is Test {
             uint256 cost = degenbondingcurve.calculateCost(buyAmount);
             uint256 tax = cost / 100;
             uint256 costWithTax = cost + tax;
-            uint256 slippage = cost / 100;
+            uint256 slippage = costWithTax / 100;
             uint256 buyEth = costWithTax + slippage;
+
 
             address newToken = refundableFactory.createToken{
                 value: createTokenRevenue + buyEth
@@ -578,7 +601,13 @@ contract RefundScenariosTest is Test {
         vm.stopPrank();
         vm.startPrank(addr2);
 
-        newTokenInstance.buyTokens{value: buyEth}(buyAmount, 100, buyEth);
+        cost = newTokenInstance.calculateCost(buyAmount);
+        tax = cost / 100;
+        costWithTax = cost + tax;
+        slippage = costWithTax / 100;
+        uint256 totalCost = costWithTax + slippage;
+
+        newTokenInstance.buyTokens{value: totalCost}(buyAmount, 100);
         assertEq(newTokenInstance.balanceOf(addr2), buyAmount * 10 ** 18);
         vm.stopPrank();
         vm.startPrank(addr1);

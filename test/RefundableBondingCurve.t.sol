@@ -71,8 +71,7 @@ contract RefundableBondingCurveTest is Test {
             uint256 totalCostWithSlippage = totalCost + slippage;
             refundableBondingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(refundableBondingCurve.balanceOf(address(addr1)), amount * 10 ** 18);
             assertEq(refundableBondingCurve.bondingCurveCompleted(), true);
@@ -88,8 +87,7 @@ contract RefundableBondingCurveTest is Test {
             uint256 totalCostWithSlippage = totalCost + slippage;
             refundableBondingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(refundableBondingCurve.balanceOf(address(addr1)), amount * 10 ** 18);
             assertEq(refundableBondingCurve.bondingCurveCompleted(), true);
@@ -97,8 +95,7 @@ contract RefundableBondingCurveTest is Test {
             vm.expectRevert("Curve done");
             refundableBondingCurve.buyTokens{value: totalCostWithSlippage}(
                     amount,
-                    100,
-                    totalCost
+                    100
                 );
             vm.expectRevert("Curve done");
             refundableBondingCurve.refund();
@@ -115,8 +112,7 @@ contract RefundableBondingCurveTest is Test {
             uint256 totalCostWithSlippage = totalCost + slippage;
             refundableBondingCurve.buyTokens{value: totalCostWithSlippage}(
                 amount,
-                100,
-                totalCost
+                100
             );
             assertEq(refundableBondingCurve.balanceOf(address(addr1)), amount * 10 ** 18);
             assertEq(refundableBondingCurve.bondingCurveCompleted(), true);
